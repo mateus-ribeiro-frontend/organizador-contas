@@ -1,14 +1,15 @@
 <script setup>
 import { useStore } from 'vuex'
 import { computed, reactive, ref } from 'vue'
+import { useRouter } from 'vue-router';
 
-import Header from '../components/Header.vue'
 import Card from '../components/Card.vue'
 import Input from '../components/Input.vue'
 import MyButton from '../components/MyButton.vue'
 
 import ChevronRight from '../assets/chevron-right.svg'
 
+const router = useRouter();
 const store = useStore()
 const earnings = computed(() => store.state.home.monthlyEarnings)
 const earningsWithMask = computed(() => {
@@ -40,6 +41,8 @@ const addGain = () => {
     let newGainFloat = parseFloat(newGainOnlyNumber) / 100
     const valueSum = earnings.value + newGainFloat
     store.dispatch('home/addGain', valueSum)
+
+    //to-do add gain in list for details
 }
 
 const debitGain = () => {
@@ -53,15 +56,19 @@ const debitGain = () => {
     let newDebitFloat = parseFloat(newDebitOnlyNumber) / 100
     const valieDecreases = earnings.value - newDebitFloat
     store.dispatch('home/debitGain', valieDecreases)
+
+    //to-do add debit in list for details
+}
+
+const goToDetails = () => {
+    router.push('/details')
 }
 
 </script>
 
 <template>
     <div class="body">
-        <Header />
-
-        <Card>
+        <Card @on-click="() => goToDetails()">
             <div class="container-month">
                 <div class="container-amount">
                     <p class="title">Ganhos mensal </p>
@@ -110,6 +117,7 @@ const debitGain = () => {
 }
 
 .container-month {
+    align-items: center;
     display: flex;
     justify-content: space-between;
 }
