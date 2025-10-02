@@ -6,7 +6,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="card">
+  <div @click="$emit('onClick')" class="card">
     <slot />
   </div>
 </template>
