@@ -8,13 +8,14 @@ defineProps({
 </script>
 
 <template>
-    <button @click="() => $emit('onClick')" :class="['button', { 'button-green': type === 'green', 'button-red': type === 'red'  }]">
+    <button @click="() => $emit('onClick')"
+        :class="['button', { 'button-green': type === 'green', 'button-red': type === 'red' }]">
         <p class="title"> {{ title }}</p>
     </button>
 </template>
 
 <style scoped>
-.button{
+.button {
     border-radius: 16px;
     min-width: 204px;
     min-height: 40px;
@@ -22,15 +23,15 @@ defineProps({
     border-style: none;
 }
 
-.button-green{
+.button-green {
     background-color: #103308;
 }
 
-.button-red{
+.button-red {
     background-color: #410505;
 }
 
-.title{
+.title {
     color: white;
     font-size: 24px;
     font-weight: bolder;

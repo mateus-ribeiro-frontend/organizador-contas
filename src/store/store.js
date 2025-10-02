@@ -5,21 +5,21 @@ const home = {
     state: {
         monthlyEarnings: 3000,
     },
-    mutations:{
-        setMonthlyEarnings(state, newValue){
+    mutations: {
+        setMonthlyEarnings(state, newValue) {
             state.monthlyEarnings = newValue
         },
     },
     getters: {
-        getMonthlyEarnings(state){
+        getMonthlyEarnings(state) {
             return state.monthlyEarnings
         },
     },
     actions: {
-        async addGain({ commit}, payload){
+        async addGain({ commit }, payload) {
             commit('setMonthlyEarnings', payload)
         },
-         async debitGain({ commit}, payload){
+        async debitGain({ commit }, payload) {
             commit('setMonthlyEarnings', payload)
         },
     }
@@ -29,14 +29,14 @@ const details = {
     namespaced: true,
     state: {
     },
-    mutations:{
+    mutations: {
     },
 
 }
 
 export const store = createStore({
-    state:{},
+    state: {},
     mutations: {},
-    actions:{},
+    actions: {},
     modules: { home, details }
 })
