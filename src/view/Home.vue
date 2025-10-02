@@ -11,17 +11,49 @@ import ChevronRight from '../assets/chevron-right.svg'
 
 const store = useStore()
 const earnings = computed(() => store.state.home.monthlyEarnings)
+const earningsWithMask = computed(() => {
+    const monthlyEarnings = earnings.value
+    const formatter = new Intl.NumberFormat('pt-BR', { 
+        style: 'currency', 
+        currency: 'BRL', 
+        minimumFractionDigits: 2, 
+        maximumFractionDigits: 3 
+    });
+
+    return formatter.format(parseFloat(monthlyEarnings))
+})
 
 let gainNameToAdd = ''
 let gainValueToAdd = ''
 
+let debitNameToAdd = ''
+let debitValueToAdd = ''
+
 const addGain = () => {
-    /*to-do*/
-    //const valueSum = earnings.value + newValueFloat
-    //store.dispatch('home/addGain', valueSum)
+    const newGainOnlyNumber = gainValueToAdd.replace(/\D/g, '')
+
+    if(newGainOnlyNumber === ''){
+        //to-do add validation empty number
+        return
+    }
+
+    let newGainFloat = parseFloat(newGainOnlyNumber) / 100
+    const valueSum = earnings.value + newGainFloat
+    store.dispatch('home/addGain', valueSum)
 }
 
+const debitGain = () => {
+    const newDebitOnlyNumber = debitValueToAdd.replace(/\D/g, '')
 
+    if(newDebitOnlyNumber === ''){
+        //to-do add validation empty number
+        return
+    }
+
+    let newDebitFloat = parseFloat(newDebitOnlyNumber) / 100
+    const valieDecreases = earnings.value - newDebitFloat
+    store.dispatch('home/debitGain', valieDecreases)
+}
 
 </script>
 
@@ -32,8 +64,8 @@ const addGain = () => {
     <Card>
         <div class="container-month">
             <div class="container-amount">
-                <p class="title">Ganhos mensal</p>
-                <p class="amount">{{earnings}}</p>
+                <p class="title">Ganhos mensal </p>
+                <p class="amount">{{earningsWithMask}}</p>
             </div>
 
             <ChevronRight class="arrow" />
@@ -50,10 +82,10 @@ const addGain = () => {
 
     <Card>
         <p class="title">Adicionar despesa</p>
-        <Input @on-input="(value) => {/*to-do*/}" title="Nome:" placeholder="Ex: Aluguel"/>
-        <Input :is-money="true" @on-input="(value) => {/*to-do*/}" title="Valor:" placeholder="Ex: -800,00" />
+        <Input @on-input="(value) => { debitNameToAdd = value }" title="Nome:" placeholder="Ex: Aluguel"/>
+        <Input :is-money="true" @on-input="(value) =>  debitValueToAdd = value" title="Valor:" placeholder="Ex: -800,00" />
 
-        <MyButton @on-click="() => {/*to-do*/}" type="red" title="Debitar" />
+        <MyButton @on-click="() => debitGain()" type="red" title="Debitar" />
     </Card>
 
   </div>

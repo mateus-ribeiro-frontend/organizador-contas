@@ -18,7 +18,10 @@ const home = {
     actions: {
         async addGain({ commit}, payload){
             commit('setMonthlyEarnings', payload)
-        }
+        },
+         async debitGain({ commit}, payload){
+            commit('setMonthlyEarnings', payload)
+        },
     }
 }
 
