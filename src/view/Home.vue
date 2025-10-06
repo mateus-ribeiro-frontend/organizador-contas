@@ -105,9 +105,8 @@ const goToDetails = () => {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    background-color: #252525;
-    min-width: 100vw;
-    min-height: 100vh;
+    background-color: #1b1321;
+    height: calc(100vh - 40px);
 }
 
 .arrow {
